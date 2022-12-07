@@ -1,10 +1,16 @@
+import processing.core.PImage;
+
 public class Rock {
     int x,y,xs,ys, iW, iH;
+    PImage p1;
     public Rock(){
         this.x = x;
         this.y = y;
         this.xs = xs;
         this.ys = ys;
+        this.p1 = p1;
+        this.iW = p1.width;
+        this.iH = p1.height;
     }
     public void reverseX(){
         xs = -xs;
