@@ -8,9 +8,9 @@ public class Main extends PApplet {
         size(600,600);
     }
     public void setup(){
-    p = new Paper(loadImage("paper.png"));
-    r = new Rock(loadImage("rock.png"));
-    s = new Scissors(loadImage("scissors.png"));
+    p = new Paper(3,3,3,3,loadImage("paper.png"));
+    r = new Rock(3,3,3,3,loadImage("rock.png"));
+    s = new Scissors(3,3,3,3,loadImage("scissors.png"));
     }
     public void draw(){
     image(p.p1, 300,300);
