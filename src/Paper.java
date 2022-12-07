@@ -9,6 +9,7 @@ public class Paper {
         this.xs = xs;
         this.ys = ys;
         this.p1 = p1;
+        p1.resize(16, 16);
         this.iW = p1.width;
         this.iH = p1.height;
     }
@@ -19,8 +20,8 @@ public class Paper {
         ys = -ys;
     }
     public void move(){
-        x = (int)(Math.random()*(600-iW));
-        y = (int)(Math.random()*(600-iH));
+        x += xs;
+        y += ys;
     }
     public void act(){
         if(x < 0 || x>=600){
