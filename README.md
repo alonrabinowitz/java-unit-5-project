@@ -1,2 +1,2 @@
-                                                               The Unit 5 Java Graphics Project
+                                                        The Unit 5 Java Graphics Project
  
