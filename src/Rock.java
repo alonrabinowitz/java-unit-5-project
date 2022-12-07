@@ -1,8 +1,5 @@
 import processing.core.PImage;
 
-import processing.core.PApplet;
-
-
 public class Rock {
     int x,y,xs,ys, iW, iH;
     PImage p1;

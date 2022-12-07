@@ -16,7 +16,12 @@ public class Main extends PApplet {
     image(p.p1, 300,300);
     image(s.p1, 500,500);
     image(r.p1,100,100);
-
+    p.move();
+    r.move();
+    s.move();
+    p.act();
+    s.act();
+    r.act();
     }
 
     public static void main(String[] args) {
