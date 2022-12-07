@@ -3,7 +3,7 @@ import processing.core.PImage;
 public class Paper {
     int x,y,xs,ys, iW, iH;
     PImage p1;
-    public Paper(){
+    public Paper(int x, int y, int xs, int ys, PImage p1){
         this.x = x;
         this.y = y;
         this.xs = xs;
