@@ -11,9 +11,15 @@ public class Main extends PApplet {
         size(600,600);
     }
     public void setup(){
-    p = new Paper(3,3,3,3,loadImage("paper.png"));
-    r = new Rock(3,3,3,3,loadImage("rock.png"));
-    s = new Scissors(3,3,3,3,loadImage("scissors.png"));
+        papers = new ArrayList<>();
+        scissors = new ArrayList<>();
+        rocks = new ArrayList<>();
+
+        for(int i = 0; i < 30; i++){
+            addRock();
+            addPaper();
+            addScissors();
+        }
     }
     public void draw(){
         background(204);

@@ -20,8 +20,8 @@ public class Scissors {
         ys = -ys;
     }
     public void move(){
-        x = (int)(Math.random()*(600-iW));
-        y = (int)(Math.random()*(600-iH));
+        x += xs;
+        y += ys;
     }
     public void act(){
         if(x < 0 || x>=600){
