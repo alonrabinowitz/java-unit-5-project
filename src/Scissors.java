@@ -3,11 +3,7 @@ import processing.core.PImage;
 public class Scissors {
     int x,y,xs,ys, iW, iH;
     PImage p1;
-    public Scissors(){
-        this.x = x;
-        this.y = y;
-        this.xs = xs;
-        this.ys = ys;
+    public Scissors(PImage p1){
         this.p1 = p1;
         this.iW = p1.width;
         this.iH = p1.height;
