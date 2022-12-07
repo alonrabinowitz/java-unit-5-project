@@ -16,6 +16,7 @@ public class Main extends PApplet {
     s = new Scissors(3,3,3,3,loadImage("scissors.png"));
     }
     public void draw(){
+        background(204);
         for(Paper currPaper : papers){
             currPaper.act();
             currPaper.move();
