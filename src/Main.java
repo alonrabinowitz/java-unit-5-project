@@ -3,9 +3,9 @@ import processing.core.PApplet;
 import java.util.ArrayList;
 
 public class Main extends PApplet {
-    ArrayList<Rock> rocks;
-    ArrayList<Paper> papers;
-    ArrayList<Scissors> scissors;
+    public ArrayList<Rock> rocks;
+    public ArrayList<Paper> papers;
+    public ArrayList<Scissors> scissors;
 
     public void settings(){
         size(600,600);
@@ -23,6 +23,10 @@ public class Main extends PApplet {
     }
     public void draw(){
         background(204);
+        fill(0);
+        text("Rocks: " + rocks.size(), 100, 15);
+        text("Papers: " + papers.size(), 100, 30);
+        text("Scissors: " + scissors.size(), 100, 45);
         for(Paper currPaper : papers){
             currPaper.act();
             currPaper.move();
@@ -49,18 +53,75 @@ public class Main extends PApplet {
                 addScissorsMouse();
             }
         }
+//        checkCollision(rocks, papers, scissors);
 //        int prCount = 0;
 //        for(Paper currP : papers){
-//            for(Rock currR : rocks){
-//                prCount++;
-//                if(currP.x + currP.iW >= currR.x && currP.x <= currR.x + currR.iW && currP.y + currP.iH >= currR.y && currP.y <= currR.y + currR.iH){
-//                    rocks.remove(prCount);
+//            for(int i = rocks.size()-1; i >= 0; i--){
+//                Rock currR = rocks.get(i);
+//                if(currP.x + currP.iW >= currR.x && currP.x <= currR.x + currR.iW && currP.y + currP.iH >= currR.y && currP.y <= currR.y + currR.iH) {
+//                    rocks.remove(currR);
 //                    prCount--;
 //                }
 //            }
 //        }
+        // Paper vs. Rock
+        for(Paper currP : papers){
+            for(int i = rocks.size()-1; i >= 0; i--){
+                Rock currR = rocks.get(i);
+                if(currP.x + currP.iW >= currR.x && currP.x <= currR.x + currR.iW && currP.y + currP.iH >= currR.y && currP.y <= currR.y + currR.iH) {
+                    rocks.remove(currR);
+                }
+            }
+        }
+        //Rock vs. Scissors
+        for(Rock currR : rocks){
+            for(int i = scissors.size()-1; i >= 0; i--){
+                Scissors currS = scissors.get(i);
+                if(currS.x + currS.iW >= currR.x && currS.x <= currR.x + currR.iW && currS.y + currS.iH >= currR.y && currS.y <= currR.y + currR.iH) {
+                    scissors.remove(currS);
+                }
+            }
+        }
+        // Scissors vs. Paper
+        for(Scissors currS : scissors){
+            for(int i = papers.size()-1; i >= 0; i--){
+                Paper currP = papers.get(i);
+                if(currP.x + currP.iW >= currS.x && currP.x <= currS.x + currS.iW && currP.y + currP.iH >= currS.y && currP.y <= currS.y + currS.iH) {
+                    papers.remove(currP);
+                }
+            }
+        }
     }
 
+    public void checkCollision(ArrayList<Rock> rList, ArrayList<Paper> pList, ArrayList<Scissors> sList){
+        // Paper vs. Rock
+        for(Paper currP : pList){
+            for(int i = rocks.size()-1; i >= 0; i--){
+                Rock currR = rocks.get(i);
+                if(currP.x + currP.iW >= currR.x && currP.x <= currR.x + currR.iW && currP.y + currP.iH >= currR.y && currP.y <= currR.y + currR.iH) {
+                    rocks.remove(currR);
+                }
+            }
+        }
+        //Rock vs. Scissors
+        for(Rock currR : rocks){
+            for(int i = scissors.size()-1; i >= 0; i--){
+                Scissors currP = scissors.get(i);
+                if(currP.x + currP.iW >= currR.x && currP.x <= currR.x + currR.iW && currP.y + currP.iH >= currR.y && currP.y <= currR.y + currR.iH) {
+                    rocks.remove(currR);
+                }
+            }
+        }
+        // Scissors vs. Paper
+        for(Scissors currS : scissors){
+            for(int i = pList.size()-1; i >= 0; i--){
+                Paper currP = pList.get(i);
+                if(currP.x + currP.iW >= currS.x && currP.x <= currS.x + currS.iW && currP.y + currP.iH >= currS.y && currP.y <= currS.y + currS.iH) {
+                    pList.remove(currP);
+                }
+            }
+        }
+    }
     public void addRock(){
         int x = (int)(Math.random()*600);
         int y = (int)(Math.random()*600);
