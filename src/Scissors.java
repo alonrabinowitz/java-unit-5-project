@@ -24,10 +24,10 @@ public class Scissors {
         y += ys;
     }
     public void act(){
-        if(x < 0 || x>=600){
+        if(x < 0 || x+iW>=600){
             reverseX();
         }
-        if(y < 0 || y >= 600){
+        if(y < 0 || y+iH >= 600){
             reverseY();
         }
     }
