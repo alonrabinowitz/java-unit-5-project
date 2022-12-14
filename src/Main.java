@@ -149,7 +149,7 @@ public class Main extends PApplet {
         if(ys==0){
             ys+=1;
         }
-        papers.add(new Paper(x,y,xs,ys,loadImage("paper.png")));
+        papers.add(new Paper(x,y,xs,ys,loadImage("pacman.png")));
     }
     public void addPaperMouse(){
         int xs = (int)(Math.random()*11-5);
