@@ -1,5 +1,6 @@
 import processing.core.PApplet;
 import processing.core.PFont;
+import processing.core.PImage;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,11 +10,13 @@ public class Main extends PApplet {
     public ArrayList<Rock> rocks;
     public ArrayList<Paper> papers;
     public ArrayList<Scissors> scissors;
+    public ArrayList<PacManFood> pacmanFoods;
+    public ArrayList<Ghost> ghosts;
     PFont font;
     final int FIGHTSIM = 0;
     final int PACMAN = 1;
     final int CHOICE = 2;
-    int gameMode = FIGHTSIM;
+    int gameMode = CHOICE;
 
     public void settings(){
         size(600,600);
@@ -22,6 +25,9 @@ public class Main extends PApplet {
         papers = new ArrayList<>();
         scissors = new ArrayList<>();
         rocks = new ArrayList<>();
+        pacmanFoods = new ArrayList<>();
+        ghosts = new ArrayList<>();
+
 
         font = createFont("SF Pro", 12);
 
@@ -30,9 +36,43 @@ public class Main extends PApplet {
             addPaper();
             addScissors();
         }
+        for(int i = 0; i < 16; i++){
+            for(int j = 0; j < 16; j++) {
+                pacmanFoods.add(new PacManFood(36*i+28, 36*j+28, 10,color(247, 241, 81)));
+            }
+        }
+        // Create ghosts
+        for(int i = 0; i < 3; i++){
+            int x = (int)(Math.random()*450+75);
+            int y = (int)(Math.random()*450+75);
+            int xs, ys, temp;
+            temp = (int)(Math.random()*4);
+            if(temp == 0){
+                xs = 5;
+                ys = 0;
+            }else if(temp == 1){
+                xs = -5;
+                ys = 0;
+            }else if(temp == 2){
+                xs = 0;
+                ys = 5;
+            }else{
+                xs = 0;
+                ys = -5;
+            }
+            PImage tempImage;
+            temp = (int)(Math.random()*3);
+            if(temp == 0){
+                tempImage = loadImage("Ghost-B.png");
+            }else if(temp == 1){
+                tempImage = loadImage("Ghost-O.png");
+            }else {
+                tempImage = loadImage("Ghost-P.png");
+            }
+            ghosts.add(new Ghost(x, y, xs, ys, tempImage));
+        }
     }
     public void draw(){
-        // We mostly worked on the plan for extending our project with an additional game
         background(204);
         if(gameMode == FIGHTSIM){
             rps();
@@ -110,7 +150,16 @@ public class Main extends PApplet {
         text("Scissors: " + scissors.size(), 100, 55);
     }
     public void pacMan(){
+        for(int i = 0; i < pacmanFoods.size(); i++){
+            PacManFood currFood = pacmanFoods.get(i);
+            fill(currFood.color);
+            ellipse(currFood.x, currFood.y, currFood.size, currFood.size);
+        }
+    }
+    public void keyReleased(){
+        if(key == 'w'){
 
+        }
     }
     public void addRock(){
         int x = (int)(Math.random()*600);
@@ -149,7 +198,7 @@ public class Main extends PApplet {
         if(ys==0){
             ys+=1;
         }
-        papers.add(new Paper(x,y,xs,ys,loadImage("pacman.png")));
+        papers.add(new Paper(x,y,xs,ys,loadImage("paper.png")));
     }
     public void addPaperMouse(){
         int xs = (int)(Math.random()*11-5);
