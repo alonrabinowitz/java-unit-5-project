@@ -1,6 +1,7 @@
 import processing.core.PApplet;
 import processing.core.PFont;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -9,6 +10,10 @@ public class Main extends PApplet {
     public ArrayList<Paper> papers;
     public ArrayList<Scissors> scissors;
     PFont font;
+    final int FIGHTSIM = 0;
+    final int PACMAN = 1;
+    final int CHOICE = 2;
+    int gameMode;
 
     public void settings(){
         size(600,600);
@@ -27,7 +32,21 @@ public class Main extends PApplet {
         }
     }
     public void draw(){
+        // We mostly worked on the plan for extending our project with an additional game
         background(204);
+        if(gameMode == FIGHTSIM){
+            rps();
+        } else if(gameMode == PACMAN){
+            pacMan();
+        } else if(gameMode == CHOICE){
+            String[] buttons = {"Fight Simulator", "PacMan"};
+            gameMode = JOptionPane.showOptionDialog(null, "Which game do you want to play?",
+                    "Games", JOptionPane.DEFAULT_OPTION, 0, null,
+                    buttons, null);
+        }
+    }
+
+    public void rps(){
         for(Paper currPaper : papers){
             currPaper.act();
             currPaper.move();
@@ -90,7 +109,9 @@ public class Main extends PApplet {
         text("Papers: " + papers.size(), 100, 40);
         text("Scissors: " + scissors.size(), 100, 55);
     }
+    public void pacMan(){
 
+    }
     public void addRock(){
         int x = (int)(Math.random()*600);
         int y = (int)(Math.random()*600);
