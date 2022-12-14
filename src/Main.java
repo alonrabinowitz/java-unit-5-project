@@ -13,7 +13,7 @@ public class Main extends PApplet {
     final int FIGHTSIM = 0;
     final int PACMAN = 1;
     final int CHOICE = 2;
-    int gameMode;
+    int gameMode = FIGHTSIM;
 
     public void settings(){
         size(600,600);
