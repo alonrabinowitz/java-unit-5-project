@@ -12,11 +12,14 @@ public class Main extends PApplet {
     public ArrayList<Scissors> scissors;
     public ArrayList<PacManFood> pacmanFoods;
     public ArrayList<Ghost> ghosts;
+    public PacMan pacman;
+    public boolean gameOver;
     PFont font;
     final int FIGHTSIM = 0;
     final int PACMAN = 1;
     final int CHOICE = 2;
     int gameMode = CHOICE;
+    int lives = 5;
 
     public void settings(){
         size(600,600);
@@ -27,6 +30,7 @@ public class Main extends PApplet {
         rocks = new ArrayList<>();
         pacmanFoods = new ArrayList<>();
         ghosts = new ArrayList<>();
+        pacman = new PacMan(300,300,0,0,loadImage("pacman.png"));
 
 
         font = createFont("SF Pro", 12);
@@ -157,9 +161,7 @@ public class Main extends PApplet {
         }
     }
     public void keyReleased(){
-        if(key == 'w'){
-
-        }
+        pacman.move();
     }
     public void addRock(){
         int x = (int)(Math.random()*600);
