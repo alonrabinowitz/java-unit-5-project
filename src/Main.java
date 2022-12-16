@@ -27,14 +27,11 @@ public class Main extends PApplet {
         scissors = new ArrayList<>();
         rocks = new ArrayList<>();
         pacmanFoods = new ArrayList<>();
-        ghost1 = new Ghost(0,0,0,0,loadImage("Ghost-B.png"));
-        ghost2 = new Ghost(0,0,0,0,loadImage("Ghost-O.png"));
-        ghost3 = new Ghost(0,0,0,0,loadImage("Ghost-P.png"));
+        ghost1 = new Ghost(7,9,0.07,0,loadImage("Ghost-B.png"));
+        ghost2 = new Ghost(8,8,0,0.07,loadImage("Ghost-O.png"));
+        ghost3 = new Ghost(9,7,0.07,0.07,loadImage("Ghost-P.png"));
         pacman = new PacMan(0,0,0,0,loadImage("pacman.png"));
-
-
         font = createFont("SF Pro", 12);
-
         for(int i = 0; i < 30; i++){
             addRock();
             addPaper();
@@ -144,49 +141,30 @@ public class Main extends PApplet {
         pacman.x+=pacman.xs;
         //1st Ghost
         ghost1.act();
-        ghost1.ys = 0;
-        ghost1.xs = 0.05;
-        if(ghost1.x < 0){
+        if(ghost1.x < 0 || ghost1.x > 15){
             ghost1.reverseX();
         }
-        if(ghost1.x > 16){
-            ghost1.reverseX();
-        }
-        if(ghost1.y < 0){
-            ghost1.reverseY();
-        }
-        if(ghost1.y > 16){
+        if(ghost1.y < 0 || ghost1.y > 15){
             ghost1.reverseY();
         }
         //2nd Ghost
         ghost2.act();
-        ghost2.ys = 0.05;
-        ghost2.xs = 0;
-        if(ghost2.x < 0 || ghost2.x > 16){
+        if(ghost2.x < 0 || ghost2.x > 15){
             ghost2.reverseX();
         }
-        if(ghost2.y < 0 || ghost2.y > 16){
+        if(ghost2.y < 0 || ghost2.y > 15){
             ghost2.reverseY();
         }
         //3rd Ghost
         ghost3.act();
-        ghost3.ys = 0.05;
-        ghost3.xs = 0.05;
-        if(ghost3.x > 16){
-            ghost3.x = 16;
+        if(ghost3.x < 0|| ghost3.x > 15){
+            ghost3.reverseX();
         }
-        if(ghost3.x < 0){
-            ghost3.x = 0;
+        if(ghost3.y < 0 || ghost3.y > 15){
+            ghost3.reverseY();
         }
-        if(ghost3.y > 16){
-            ghost3.y = 16;
-        }
-        if(ghost3.y < 0){
-            ghost3.y = 0;
-        }
-
         fill(0);
-        text("Food Eaten: " + (256-pacmanFoods.size()), (float) ((36*(int)pacman.x+15) + pacman.p1.width), (float) ((36*(int)pacman.y+15) + pacman.p1.height));
+//        text("Food Eaten: " + (256-pacmanFoods.size()), (float) ((36*(int)pacman.x+15) + pacman.p1.width), (float) ((36*(int)pacman.y+15) + pacman.p1.height));
         for(int i = pacmanFoods.size()-1; i >= 0; i--){
             PacManFood currFood = pacmanFoods.get(i);
             if(dist((36*(int)pacman.x+15)+16, (36*(int)pacman.y+15)+16, currFood.x, currFood.y) <= 21){
