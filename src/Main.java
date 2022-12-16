@@ -10,7 +10,7 @@ public class Main extends PApplet {
     public ArrayList<Paper> papers;
     public ArrayList<Scissors> scissors;
     public ArrayList<PacManFood> pacmanFoods;
-    public ArrayList<Ghost> ghosts;
+    public Ghost ghost1, ghost2, ghost3;
     public PacMan pacman;
     PFont font;
     final int FIGHTSIM = 0;
@@ -18,7 +18,7 @@ public class Main extends PApplet {
     final int CHOICE = 2;
     int gameMode = CHOICE;
     int lives = 5;
-
+    boolean g1, g2, g3;
     public void settings(){
         size(600,600);
     }
@@ -27,8 +27,10 @@ public class Main extends PApplet {
         scissors = new ArrayList<>();
         rocks = new ArrayList<>();
         pacmanFoods = new ArrayList<>();
-        ghosts = new ArrayList<>();
-        pacman = new PacMan(0, 0,0,0,loadImage("pacman.png"));
+        ghost1 = new Ghost(0,0,0,0,loadImage("Ghost-B.png"));
+        ghost2 = new Ghost(0,0,0,0,loadImage("Ghost-O.png"));
+        ghost3 = new Ghost(0,0,0,0,loadImage("Ghost-P.png"));
+        pacman = new PacMan(0,0,0,0,loadImage("pacman.png"));
 
 
         font = createFont("SF Pro", 12);
@@ -42,36 +44,6 @@ public class Main extends PApplet {
             for(int j = 0; j < 16; j++) {
                 pacmanFoods.add(new PacManFood(36*i+28, 36*j+28, 10,color(247, 241, 81)));
             }
-        }
-        // Create ghosts
-        for(int i = 0; i < 3; i++){
-            int x = (int)(Math.random()*450+75);
-            int y = (int)(Math.random()*450+75);
-            int xs, ys, temp;
-            temp = (int)(Math.random()*4);
-            if(temp == 0){
-                xs = 5;
-                ys = 0;
-            }else if(temp == 1){
-                xs = -5;
-                ys = 0;
-            }else if(temp == 2){
-                xs = 0;
-                ys = 5;
-            }else{
-                xs = 0;
-                ys = -5;
-            }
-            PImage tempImage;
-            temp = (int)(Math.random()*3);
-            if(temp == 0){
-                tempImage = loadImage("Ghost-B.png");
-            }else if(temp == 1){
-                tempImage = loadImage("Ghost-O.png");
-            }else {
-                tempImage = loadImage("Ghost-P.png");
-            }
-            ghosts.add(new Ghost(x, y, xs, ys, tempImage));
         }
     }
     public void draw(){
@@ -156,17 +128,71 @@ public class Main extends PApplet {
             fill(currFood.color);
             ellipse(currFood.x, currFood.y, currFood.size, currFood.size);
         }
+        //PacMan Image
         image(pacman.p1, 36*(int)pacman.x+15, 36*(int)pacman.y+15);
-
-        pacman.y+=pacman.ys;
-        pacman.x+=pacman.xs;
+        //Ghost Images
+        image(ghost1.p1, 36*(int)ghost1.x+15, 36*(int)ghost1.y+15);
+        image(ghost2.p1, 36*(int)ghost2.x+15, 36*(int)ghost2.y+15);
+        image(ghost3.p1, 36*(int)ghost3.x+15, 36*(int)ghost3.y+15);
         if(pacman.x < 0 || pacman.x >= 15){
             pacman.stopX();
         }
         if(pacman.y < 0 || pacman.y >= 15){
             pacman.stopY();
         }
-        text("Food Eaten:",pacman.p1.width, pacman.p1.height);
+        pacman.y+=pacman.ys;
+        pacman.x+=pacman.xs;
+        //1st Ghost
+        ghost1.act();
+        ghost1.ys = 0;
+        ghost1.xs = 0.05;
+        if(ghost1.x < 0){
+            ghost1.reverseX();
+        }
+        if(ghost1.x > 16){
+            ghost1.reverseX();
+        }
+        if(ghost1.y < 0){
+            ghost1.reverseY();
+        }
+        if(ghost1.y > 16){
+            ghost1.reverseY();
+        }
+        //2nd Ghost
+        ghost2.act();
+        ghost2.ys = 0.05;
+        ghost2.xs = 0;
+        if(ghost2.x < 0 || ghost2.x > 16){
+            ghost2.reverseX();
+        }
+        if(ghost2.y < 0 || ghost2.y > 16){
+            ghost2.reverseY();
+        }
+        //3rd Ghost
+        ghost3.act();
+        ghost3.ys = 0.05;
+        ghost3.xs = 0.05;
+        if(ghost3.x > 16){
+            ghost3.x = 16;
+        }
+        if(ghost3.x < 0){
+            ghost3.x = 0;
+        }
+        if(ghost3.y > 16){
+            ghost3.y = 16;
+        }
+        if(ghost3.y < 0){
+            ghost3.y = 0;
+        }
+
+        fill(0);
+        text("Food Eaten: " + (256-pacmanFoods.size()), (float) ((36*(int)pacman.x+15) + pacman.p1.width), (float) ((36*(int)pacman.y+15) + pacman.p1.height));
+        for(int i = pacmanFoods.size()-1; i >= 0; i--){
+            PacManFood currFood = pacmanFoods.get(i);
+            if(dist((36*(int)pacman.x+15)+16, (36*(int)pacman.y+15)+16, currFood.x, currFood.y) <= 21){
+                pacmanFoods.remove(currFood);
+            }
+        }
     }
     public void keyReleased(){
         if(key == 'w'){
@@ -269,7 +295,13 @@ public class Main extends PApplet {
         }
         scissors.add(new Scissors(mouseX,mouseY,xs,ys,loadImage("scissors.png")));
     }
-    public static void main(String[] args) {
+    public static double dist(int x1,int y1,int x2, int y2){
+        int xDist = x2 - x1;
+        int yDist = y2 - y1;
+        double dist = Math.sqrt(xDist*xDist + yDist*yDist);
+        return dist;
+    }
+        public static void main(String[] args) {
         PApplet.main("Main");
     }
 }

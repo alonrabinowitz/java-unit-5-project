@@ -1,15 +1,16 @@
 import processing.core.PImage;
 
 public class Ghost {
-    int x, y, xs, ys, iW, iH;
+    int iW, iH;
+    double  x, y, xs, ys;
     PImage p1;
-    public Ghost(int x, int y, int xs, int ys, PImage p1){
+    public Ghost(double x, double y, double xs, double ys, PImage p1){
         this.x = x;
         this.y = y;
         this.xs = xs;
         this.ys = ys;
         this.p1 = p1;
-        p1.resize(64, 64);
+        p1.resize(32, 32);
         this.iW = p1.width;
         this.iH = p1.height;
     }

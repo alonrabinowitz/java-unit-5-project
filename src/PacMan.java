@@ -16,18 +16,7 @@ public class PacMan {
         this.iH = p1.height;
     }
     public void move(){
-        if(up){
-            y-=ys;
-        }
-        if(down){
-            y+=ys;
-        }
-        if(left){
-            x-=xs;
-        }
-        if(right){
-            x+=xs;
-        }
+
     }
     public void stopX(){
         xs = 0;
