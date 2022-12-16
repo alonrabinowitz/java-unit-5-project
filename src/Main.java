@@ -3,7 +3,6 @@ import processing.core.PFont;
 import processing.core.PImage;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 
 public class Main extends PApplet {
@@ -13,7 +12,6 @@ public class Main extends PApplet {
     public ArrayList<PacManFood> pacmanFoods;
     public ArrayList<Ghost> ghosts;
     public PacMan pacman;
-    public boolean gameOver;
     PFont font;
     final int FIGHTSIM = 0;
     final int PACMAN = 1;
@@ -30,7 +28,7 @@ public class Main extends PApplet {
         rocks = new ArrayList<>();
         pacmanFoods = new ArrayList<>();
         ghosts = new ArrayList<>();
-        pacman = new PacMan(300,300,0,0,loadImage("pacman.png"));
+        pacman = new PacMan(300,300,10,10,loadImage("pacman.png"));
 
 
         font = createFont("SF Pro", 12);
@@ -85,7 +83,7 @@ public class Main extends PApplet {
         } else if(gameMode == CHOICE){
             String[] buttons = {"Fight Simulator", "PacMan"};
             gameMode = JOptionPane.showOptionDialog(null, "Which game do you want to play?",
-                    "Games", JOptionPane.DEFAULT_OPTION, 0, null,
+                    "Games", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE, null,
                     buttons, null);
         }
     }
@@ -154,14 +152,11 @@ public class Main extends PApplet {
         text("Scissors: " + scissors.size(), 100, 55);
     }
     public void pacMan(){
-        for(int i = 0; i < pacmanFoods.size(); i++){
-            PacManFood currFood = pacmanFoods.get(i);
+        for (PacManFood currFood : pacmanFoods) {
             fill(currFood.color);
             ellipse(currFood.x, currFood.y, currFood.size, currFood.size);
         }
-    }
-    public void keyReleased(){
-        pacman.move();
+        image(pacman.p1, pacman.x, pacman.y);
     }
     public void addRock(){
         int x = (int)(Math.random()*600);

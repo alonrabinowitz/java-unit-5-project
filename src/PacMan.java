@@ -10,7 +10,7 @@ public class PacMan {
         this.xs = xs;
         this.ys = ys;
         this.p1 = p1;
-        p1.resize(64, 64);
+        p1.resize(32, 32);
         this.iW = p1.width;
         this.iH = p1.height;
     }
