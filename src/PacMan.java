@@ -1,10 +1,11 @@
 import processing.core.PImage;
 
 public class PacMan {
-    int x,y,xs,ys,iW,iH;
+    int iW,iH;
+    double x,y,xs,ys;
     boolean up,down,left,right;
     PImage p1;
-    public PacMan(int x, int y, int xs, int ys, PImage p1){
+    public PacMan(double x, double y, double xs, double ys, PImage p1){
         this.x = x;
         this.y = y;
         this.xs = xs;

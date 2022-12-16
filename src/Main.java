@@ -28,7 +28,7 @@ public class Main extends PApplet {
         rocks = new ArrayList<>();
         pacmanFoods = new ArrayList<>();
         ghosts = new ArrayList<>();
-        pacman = new PacMan(300,300,10,10,loadImage("pacman.png"));
+        pacman = new PacMan(0, 0,0,0,loadImage("pacman.png"));
 
 
         font = createFont("SF Pro", 12);
@@ -156,7 +156,44 @@ public class Main extends PApplet {
             fill(currFood.color);
             ellipse(currFood.x, currFood.y, currFood.size, currFood.size);
         }
-        image(pacman.p1, pacman.x, pacman.y);
+        image(pacman.p1, 36*(int)pacman.x+15, 36*(int)pacman.y+15);
+
+        pacman.y+=pacman.ys;
+        pacman.x+=pacman.xs;
+        if(pacman.x < 0 || pacman.x >= 15){
+            pacman.stopX();
+        }
+        if(pacman.y < 0 || pacman.y >= 15){
+            pacman.stopY();
+        }
+        text("Food Eaten:",pacman.p1.width, pacman.p1.height);
+    }
+    public void keyReleased(){
+        if(key == 'w'){
+            pacman.ys = -0.05;
+            pacman.xs = 0;
+            pacman.p1 = loadImage("PacmanUP.png");
+            pacman.p1.resize(32, 32);
+        }
+        if(key == 'a'){
+            pacman.xs = -0.05;
+            pacman.ys = 0;
+            pacman.p1 = loadImage("PacmanLEFT.png");
+            pacman.p1.resize(32, 32);
+        }
+        if(key == 's'){
+            pacman.ys = 0.05;
+            pacman.xs = 0;
+            pacman.p1 = loadImage("PacmanDOWN.png");
+            pacman.p1.resize(32, 32);
+        }
+        if(key == 'd'){
+            pacman.xs = 0.05;
+            pacman.ys = 0;
+            pacman.p1 = loadImage("pacman.png");
+            pacman.p1.resize(32, 32);
+        }
+
     }
     public void addRock(){
         int x = (int)(Math.random()*600);
