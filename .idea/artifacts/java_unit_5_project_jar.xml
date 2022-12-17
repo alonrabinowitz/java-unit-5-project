@@ -1,0 +1,26 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="java-unit-5-project:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/java_unit_5_project_jar</output-path>
+    <root id="archive" name="java-unit-5-project.jar">
+      <element id="module-output" name="java-unit-5-project" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/core.jar" path-in-jar="/" />
+      <element id="file-copy" path="$PROJECT_DIR$/Ghost-B.png" />
+      <element id="file-copy" path="$PROJECT_DIR$/Ghost-O.png" />
+      <element id="file-copy" path="$PROJECT_DIR$/Ghost-P.png" />
+      <element id="file-copy" path="$PROJECT_DIR$/pacman.png" />
+      <element id="file-copy" path="$PROJECT_DIR$/PacmanDOWN.png" />
+      <element id="file-copy" path="$PROJECT_DIR$/PacmanLEFT.png" />
+      <element id="file-copy" path="$PROJECT_DIR$/PacmanUP.png" />
+      <element id="file-copy" path="$PROJECT_DIR$/paper.png" />
+      <element id="file-copy" path="$PROJECT_DIR$/rock.png" />
+      <element id="file-copy" path="$PROJECT_DIR$/scissors.png" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/Ghost.java" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/Main.java" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/PacMan.java" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/PacManFood.java" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/Paper.java" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/Rock.java" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/Scissors.java" />
+    </root>
+  </artifact>
+</component>
