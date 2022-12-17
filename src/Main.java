@@ -17,12 +17,13 @@ public class Main extends PApplet {
     final int PACMAN = 1;
     final int CHOICE = 2;
     int gameMode = CHOICE;
-    int lives = 5;
+    int deathTimer;
     boolean g1, g2, g3;
     public void settings(){
         size(600,600);
     }
     public void setup(){
+        deathTimer = 0;
         papers = new ArrayList<>();
         scissors = new ArrayList<>();
         rocks = new ArrayList<>();
@@ -30,7 +31,7 @@ public class Main extends PApplet {
         ghost1 = new Ghost(7,9,0.07,0,loadImage("Ghost-B.png"));
         ghost2 = new Ghost(8,8,0,0.07,loadImage("Ghost-O.png"));
         ghost3 = new Ghost(9,7,0.07,0.07,loadImage("Ghost-P.png"));
-        pacman = new PacMan(0,0,0,0,loadImage("pacman.png"));
+        pacman = new PacMan(0,0,0,0,loadImage("pacman.png"), 5);
         font = createFont("SF Pro", 12);
         for(int i = 0; i < 30; i++){
             addRock();
@@ -171,6 +172,19 @@ public class Main extends PApplet {
                 pacmanFoods.remove(currFood);
             }
         }
+        if(isColliding(pacman, ghost1) || isColliding(pacman, ghost2) || isColliding(pacman, ghost3)){
+            if(deathTimer == 0){
+                pacman.lives--;
+                deathTimer = 15;
+            }
+            else{
+                deathTimer--;
+            }
+        }
+        text("Lives: " + pacman.lives, (float) ((36*(int)pacman.x+15) + pacman.p1.width), (float) ((36*(int)pacman.y+15) + pacman.p1.height));
+        if(isDead(pacman.lives)){
+            endGame();
+        }
     }
     public void keyReleased(){
         if(key == 'w'){
@@ -278,6 +292,26 @@ public class Main extends PApplet {
         int yDist = y2 - y1;
         double dist = Math.sqrt(xDist*xDist + yDist*yDist);
         return dist;
+    }
+    public boolean isDead(int lives){
+        if(lives <= 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public void endGame(){
+        fill(153, 0, 0);
+        textSize(50);
+        text("You died!", 200, 300);
+        noLoop();
+    }
+    public boolean isColliding(PacMan pacman, Ghost ghost){
+        if((36*(int)pacman.x+15)+16 >= 36*(int)ghost.x+15 && (36*(int)pacman.x+15)+16 <= 36*(int)ghost.x+15+32 && (36*(int)pacman.y+15)+16 >= 36*(int)ghost.y+15 && (36*(int)pacman.y+15)+16 <= 36*(int)ghost.y+15+32){
+            return true;
+        }else{
+            return false;
+        }
     }
         public static void main(String[] args) {
         PApplet.main("Main");
